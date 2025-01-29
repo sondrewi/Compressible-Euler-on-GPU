@@ -1,0 +1,14 @@
+The Code in this zip-file is intended for use on machines connected to an Nvidia A30 GPU. When the provided Makefile file is run, the following files will be compiled
+Grid.cpp (Grid class for CPU Solver)
+Slope_Limiter.cpp (Slope Limiter for CPU Solver)
+Riemann.cpp (subclass of Grid used to solve exactly the Riemann problems at cell interfaces)
+Solver.cpp (Object whose function "step" initialises objects of the other types in order to solve 2D Euler equations using MUSCL-Hancock Scheme)
+CUDA_Grid.cu (Grid object for GPU Solver maintaining references to arrays on GPU and into which a the final solution arrays are copied)
+DeviceKernels.cu File containing CUDA __global__ kernels to be called by CUDA_Grid objects and further __device__ functions which may be called by the kernels themselves)
+MACROS.H (Header file containing the definitions of various constants useful throughout the computations on both CPU and GPU)
+CUDAtests.cu (File containing main() function which calls the relevant function to solve either the quadrant problem from Liska & Wendroff or the Bubble problem from Bagadir & Drikakis given user input. Note that the user must directly change the grid dimensions in CUDAtests.cu to obtain comparable solutions)
+
+CUDAtests.cu outputs the solution of the given 2D Euler equation initial value problem computed on both CPU and GPU in the file Solutions.dat. The file has the format
+x_coord y_coord rho_CPU rho_CUDA vx_CPU vx_CUDA vy_CPU vy_CUDA p_CPU p_CUDA
+
+The results may be plotted using the general script in plots.py.
